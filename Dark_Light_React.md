@@ -82,21 +82,12 @@ Create a `ThemeToggle` component that uses the `useTheme` hook to switch between
 import { useTheme } from "../ThemeContext";
 import { GoSun } from "react-icons/go";
 import { MdOutlineDarkMode } from "react-icons/md";
-
 export const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-      style={{ color: "var(--text-color)" }}
-    >
-      {theme === "light" ? (
-        <GoSun size={24} />
-      ) : (
-        <MdOutlineDarkMode size={24} />
-      )}
+    <button onClick={toggleTheme}>
+      {theme === "light" ? <GoSun /> : <MdOutlineDarkMode />}
     </button>
   );
 };
@@ -111,41 +102,40 @@ Apply the data-theme attribute and Tailwind’s dark class to the html element b
 **File**: `src/LayOut/MainLayOut.jsx`
 
 ```jsx
-import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet } from "react-router";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 import { useTheme } from "../ThemeContext";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import ThemedCard from "../Component/ThemedCard";
 
-const MainLayOut = () => {
+const MainLayout = () => {
   const { theme } = useTheme();
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
+    const root = document.documentElement;
     if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
     }
   }, [theme]);
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: "var(--background-color)" }}
-    >
-      <Header />
-      <div className="min-h-[calc(100vh-116px)]">
-        <div className="max-w-screen-2xl mx-auto px-8 md:px-12 lg:px-16 xl:px-24">
-          <Outlet />
+    <div className="dark:bg-gray-900">
+      <Header></Header>
+
+      <div className=" min-h-[calc(100vh-116px)]">
+        <div className="max-w-screen-2xl mx-auto px-8 md:px-12 lg:16 xl:24">
+          <Outlet></Outlet>
         </div>
       </div>
-      <Footer />
+      <Footer></Footer>
     </div>
   );
 };
 
-export default MainLayOut;
+export default MainLayout;
 ```
 
 ### 5. Add the Toggle Button to the Navbar
