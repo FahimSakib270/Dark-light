@@ -1,6 +1,6 @@
-# TaskConnect - A React App with Dark/Light Theme Toggle
+# 🌓 A React App with Dark/Light Theme Toggle
 
-TaskConnect is a React application that allows users to post tasks and get bids from freelancers. This project includes a dark/light theme toggle feature, implemented using a custom `ThemeContext` and styled with Tailwind CSS for responsive design.
+A simple React application featuring a dark/light mode switch , built with React Context API for global state management and styled using Tailwind CSS . This project demonstrates how to implement a reusable theming system that works seamlessly across components.
 
 ## Features
 
